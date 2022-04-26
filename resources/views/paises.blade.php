@@ -12,7 +12,7 @@
     <table class="table table-bordered">
        <thead>
            <tr>
-               <th> Pais </th>}
+               <th> Pais </th>
                <th> Capital </th>
                <th> Moneda </th>
                <th> Poblacion </th>
@@ -26,6 +26,12 @@
                    </td>
                    <td>
                        {{ $infopais["capital"] }}
+                   </td>
+                   <td>
+                       {{ $infopais["moneda"] }}
+                   </td>
+                   <td>
+                       {{ $infopais["poblacion"] }}
                    </td>
                </tr>
            @endforeach
