@@ -9,33 +9,33 @@
 </head>
 <body>
     <h1 align="center">Paises de la religion</h1>
-    <table class="p-3 mb-2 bg-white text-dark" align="center">
+    <table class="table-striped table-dark" align="center">
        <thead>
            <tr>
-               <th class="p-3 mb-2 bg-white text-primary"> Pais </th>
-               <th class="p-3 mb-2 bg-white text-success"> Capital </th>
-               <th class="p-3 mb-2 bg-white text-danger"> Moneda </th>
-               <th class="p-3 mb-2 bg-white text-warning" > Poblacion </th>
-               <th class="p-3 mb-2 bg-info text-white"> Ciudades </th>
+               <th class="text-primary" scope="col"> Pais </th>
+               <th class="text-success" scope="col"> Capital </th>
+               <th class="text-danger" scope="col"> Moneda </th>
+               <th class="text-warning" scope="col"> Poblacion </th>
+               <th class="text-muted" scope="col"> Ciudades </th>
            </tr>
        </thead>
        <tbody>
            @foreach($paises as $pais => $infopais)
                <tr>
-                   <td class="text-primary" rowspan="{{ count($infopais['ciudades']) }}">
+                   <td class="text-primary" rowspan="{{ count($infopais['ciudades']) }}" scope="row">
                        {{ $pais }}
                    </td>
-                   <td class="text-success" rowspan="{{ count($infopais['ciudades']) }}">
+                   <td class="text-success" rowspan="{{ count($infopais['ciudades']) }}" scope="row">
                        {{ $infopais["capital"] }}
                    </td>
-                   <td class="text-danger" rowspan="{{ count($infopais['ciudades']) }}">
+                   <td class="text-danger" rowspan="{{ count($infopais['ciudades']) }}" scope="row">
                        {{ $infopais["moneda"] }}
                    </td>
-                   <td class="text-warning" rowspan="{{ count($infopais['ciudades']) }}">
+                   <td class="text-warning" rowspan="{{ count($infopais['ciudades']) }}" scope="row">
                        {{ $infopais["poblacion"] }}
                    </td>
                    @foreach($infopais["ciudades"] as $ciudad)
-                   <td class="p-3 mb-2 bg-info text-white">
+                   <td class="p-3 mb-2 bg-info text-muted" scope="row">
                        {{ $ciudad }}
                    </td>
                </tr>
