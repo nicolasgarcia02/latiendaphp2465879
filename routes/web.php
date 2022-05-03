@@ -19,7 +19,7 @@ Route::get('paises', function(){
             "capital" => "Lima",
             "moneda" => "sol",
             "poblacion" => 32.97,
-            "cuidades" => [
+            "ciudades" => [
                 "Cusco",
                 "Arequipa",
                 "Chiclayo"
