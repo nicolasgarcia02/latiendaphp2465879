@@ -1,4 +1,5 @@
 <?php
+use App\Http\Controllers\ProductoController;
 use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
@@ -41,3 +42,4 @@ Route::get('paises', function(){
 Route::get('prueba', function(){
     return view('productos.new');
 });
+Route::resource('productos', ProductoController::class);
