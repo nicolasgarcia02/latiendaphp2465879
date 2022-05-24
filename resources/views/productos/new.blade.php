@@ -10,25 +10,29 @@
         @csrf
         <div class="row">
             <div class="input-field col s8">
-                <input placeholder="Nombre del Producto" id="nombre" name="nombre" type="text">
+                <input placeholder="Nombre del Producto" id="nombre" name="nombre" value="{{ old('nombre') }}" type="text">
                 <label for="nombre">Nombre del Producto</label>
+                <span class="blue-text text-accent-1">{{ $errors->first('nombre') }}</span>
             </div>
         </div>
         <div class="row">
             <div class="input-field col s8">
-                <textarea class="materialize-textarea" placeholder="Descripcion del Producto" id="desc" name="desc"></textarea>
+                <textarea class="materialize-textarea" placeholder="Descripcion del Producto" id="desc" name="desc">{{ old('desc') }}</textarea>
                 <label for="desc">Descripcion del Producto</label>
+                <span class="blue-text text-accent-1">{{ $errors->first('desc') }}</span>
             </div>
         </div>
         <div class="row">
             <div class="input-field col s8">
-                <input placeholder="Precio del Producto" id="precio" name="precio" type="text">
+                <input placeholder="Precio del Producto" id="precio" name="precio" value="{{ old('precio') }}" type="text">
                 <label for="precio">Precio del Producto</label>
+                <span class="blue-text text-accent-1">{{ $errors->first('precio') }}</span>
             </div>
         </div>
         <div class="row">
             <div class="col s8 input-field">
                 <select name="marca" id="marca">
+                    <option value="">Elija marca</option>
                     @foreach($marcas as $marca)
                         <option value="{{ $marca->id }}">
                             {{ $marca->nombre }}
@@ -36,11 +40,13 @@
                     @endforeach
                 </select>
                 <label for="marca">Marca</label>
+                <span class="blue-text text-accent-1">{{ $errors->first('marca') }}</span>
             </div>
         </div>
         <div class="row">
             <div class="col s8 input-field">
                 <select name="categoria" id="categoria">
+                <option value="">Elija Categoria</option>
                     @foreach($categorias as $categoria)
                         <option value="{{ $categoria->id }}">
                             {{ $categoria->nombre }}
@@ -48,6 +54,7 @@
                     @endforeach
                 </select>
                 <label for="categoria">Categoria</label>
+                <span class="blue-text text-accent-1">{{ $errors->first('categoria') }}</span>
             </div>
         </div>
         <div class="row">
@@ -68,4 +75,9 @@
         </div>
     </form>
 </div>
+@if(session('mensaje'))
+<div class="row">
+    <h5 class="blue-text text-accent-1">{{ session('mensaje')}}</h5>
+</div>
+@endif
 @endsection

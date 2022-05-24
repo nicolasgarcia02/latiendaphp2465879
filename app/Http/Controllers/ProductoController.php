@@ -6,6 +6,7 @@ use App\Models\Producto;
 use App\Models\Categoria;
 use App\Models\Marca;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 
 class ProductoController extends Controller
 {
@@ -41,6 +42,28 @@ class ProductoController extends Controller
      */
     public function store(Request $r)
     {
+        $reglas = [
+            "nombre" => 'required|alpha',
+            "desc" => 'required|min:10|max:50',
+            "precio" => 'required|numeric',
+            "marca" => 'required',
+            "categoria" => 'required'
+        ];
+        $mensajes =[
+            "required" => "este campo obligatorio",
+            "numeric" => "solo se escriben numeros",
+            "alpha" => "solo se escriben letras",
+            "min" => "minino son 10 caracteres",
+            "max" => "maximo son 50 caracteres"
+        ];
+        $v = Validator::make($r->all(), $reglas, $mensajes);
+        if($v->fails()){ 
+            var_dump($v->errors());
+        return redirect('productos/create')
+                    ->withErrors($v)
+                    ->withInput();
+        }
+        else{
         $p = new Producto;
         $p->nombre = $r->nombre;
         $p->desc = $r->desc;
@@ -48,7 +71,9 @@ class ProductoController extends Controller
         $p->marca_id = $r->marca;
         $p->categoria_id = $r->categoria;
         $p->save();
-        echo "Producto creado con exito";
+        return redirect('productos/create') 
+                    ->with('mensaje' , 'Producto registrado');
+        };
     }
 
     /**
