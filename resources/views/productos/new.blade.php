@@ -6,7 +6,7 @@
     </h1>
 </div>
 <div class="row">
-    <form class="col s8" method="POST" action="{{ url('productos') }}">
+    <form class="col s8" method="POST" action="{{ url('productos') }}" enctype="multipart/form-data">
         @csrf
         <div class="row">
             <div class="input-field col s8">
@@ -61,10 +61,11 @@
             <div class="file-field input-field col s8">
                 <div class="btn">
                     <span>Imagen de producto...</span>
-                    <input type="file">
+                    <input type="file" name="imagen">
                 </div>
                 <div class="file-path-wrapper">
                         <input class="file-path validate" placeholder="Imagen del Producto" type="text">
+                        <span class="blue-text text-accent-1">{{ $errors->first('imagen') }}</span>
                 </div>
             </div>
         </div>

@@ -43,18 +43,21 @@ class ProductoController extends Controller
     public function store(Request $r)
     {
         $reglas = [
-            "nombre" => 'required|alpha',
+            "nombre" => 'required|alpha|unique:productos,nombre',
             "desc" => 'required|min:10|max:50',
             "precio" => 'required|numeric',
             "marca" => 'required',
-            "categoria" => 'required'
+            "categoria" => 'required',
+            "imagen" => 'required|image'
         ];
         $mensajes =[
             "required" => "este campo obligatorio",
             "numeric" => "solo se escriben numeros",
             "alpha" => "solo se escriben letras",
             "min" => "minino son 10 caracteres",
-            "max" => "maximo son 50 caracteres"
+            "max" => "maximo son 50 caracteres",
+            "image" => "en este campo va una imagen",
+            "unique" => "este nombre de producto ya existe"
         ];
         $v = Validator::make($r->all(), $reglas, $mensajes);
         if($v->fails()){ 
@@ -64,12 +67,18 @@ class ProductoController extends Controller
                     ->withInput();
         }
         else{
-        $p = new Producto;
+        $nombre_archivo = $r->imagen->getClientOriginalName();
+        $archivo = $r->imagen;
+        var_dump (public_path());
+        $ruta = public_path().'/img';
+        $archivo->move($ruta, $nombre_archivo);
+        $p = new Producto;    
         $p->nombre = $r->nombre;
         $p->desc = $r->desc;
         $p->precio = $r->precio;
         $p->marca_id = $r->marca;
         $p->categoria_id = $r->categoria;
+        $p->imagen = $nombre_archivo;
         $p->save();
         return redirect('productos/create') 
                     ->with('mensaje' , 'Producto registrado');
