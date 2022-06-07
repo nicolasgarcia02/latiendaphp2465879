@@ -17,7 +17,9 @@ class ProductoController extends Controller
      */
     public function index()
     {
-        echo "aqui va a ir el catalogo de productos";
+        $productos = Producto::all();
+        return view('productos.index')
+               ->with('productos' , $productos);
     }
 
     /**
@@ -81,7 +83,7 @@ class ProductoController extends Controller
         $p->imagen = $nombre_archivo;
         $p->save();
         return redirect('productos/create') 
-                    ->with('mensaje' , 'Producto registrado');
+               ->with('mensaje' , 'Producto registrado');
         };
     }
 
@@ -93,7 +95,9 @@ class ProductoController extends Controller
      */
     public function show($producto)
     {
-        echo"aqui va la informacion del producto cuyo id es: $producto";
+        $producto = Producto::find($producto);
+        return view('productos.details')
+               ->with('producto' , $producto);
     }
 
     /**
