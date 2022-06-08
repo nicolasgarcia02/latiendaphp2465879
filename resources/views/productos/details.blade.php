@@ -6,15 +6,7 @@
     <div class="row">
         <div class="col s8">
             <ul>
-                <div style="height:350px; width:300px" class="card">
-                    <div class="card-image">
-                        @if($producto->imagen === null)
-                            <img src="{{ asset('img/producto-no-disponible.jpg') }}">
-                        @else
-                            <img src="{{ asset('img/'.$producto->imagen) }}">
-                        @endif
-                    </div>
-                </div>
+                <li><img src="{{ asset('img/'.$producto->imagen) }}" alt="" width="500px"></li>
                 <li><h5>Marca:</h5> {{ $producto->marca->nombre }}</li>
                 <li><h5>Categoria:</h5> {{ $producto->categoria->nombre }}</li>
                 <li><h5>Precio:</h5> US {{ $producto->precio }}</li>
