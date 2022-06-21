@@ -1,9 +1,6 @@
 <?php
-
 namespace App\Http\Controllers;
-
 use Illuminate\Http\Request;
-
 class CartController extends Controller
 {
     /**
@@ -13,9 +10,8 @@ class CartController extends Controller
      */
     public function index()
     {
-        //
+        return view('cart.index');
     }
-
     /**
      * Show the form for creating a new resource.
      *
@@ -25,7 +21,6 @@ class CartController extends Controller
     {
         //
     }
-
     /**
      * Store a newly created resource in storage.
      *
@@ -34,11 +29,25 @@ class CartController extends Controller
      */
     public function store(Request $request)
     {
-        echo "<pre>";
-        var_dump($request->all());
-        echo "</pre>";
+        $producto = [
+            [
+                "nombre" => $request->prod_nom,
+                "id" => $request->prod_id,
+                "cantidad" => $request->cantidad,
+                "precio" => $request->prod_pre
+            ]
+        ];
+        if (!session('cart')) {
+            $auxiliar[] = $producto;
+            session([ 'cart' => $auxiliar ]);
+        } else {
+            $auxiliar = session('cart');
+            $auxiliar[] = $producto;
+            session(['cart' => $auxiliar]);
+        }
+        return redirect('productos')
+               ->with('mensaje' , 'PRODUCTO AÑADIDO AL CARRITO');
     }
-
     /**
      * Display the specified resource.
      *
@@ -49,7 +58,6 @@ class CartController extends Controller
     {
         //
     }
-
     /**
      * Show the form for editing the specified resource.
      *
@@ -60,7 +68,6 @@ class CartController extends Controller
     {
         //
     }
-
     /**
      * Update the specified resource in storage.
      *
@@ -72,7 +79,6 @@ class CartController extends Controller
     {
         //
     }
-
     /**
      * Remove the specified resource from storage.
      *
@@ -81,6 +87,8 @@ class CartController extends Controller
      */
     public function destroy($id)
     {
-        //
+        session()->forget('cart');
+        return redirect('cart')
+               ->with("mensaje","CARRITO ELIMINADO");
     }
 }

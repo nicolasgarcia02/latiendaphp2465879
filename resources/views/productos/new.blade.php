@@ -1,84 +1,79 @@
-@extends('layoust.menu')
+@extends('layouts..menu')
 @section('contenido')
+@if(session('mensaje'))
 <div class="row">
-    <h1 class="blue-text text-accent-1">
-        Nuevo Producto
-    </h1>
+    <h5 class="center-align cyan-text text-darken-3">{{ session('mensaje') }}</h5>
+</div>
+@endif
+<div class="row">
+    <h1 class="cyan-text text-darken-3">NUEVO PRODUCTO</h1>
 </div>
 <div class="row">
-    <form class="col s8" method="POST" action="{{ url('productos') }}" enctype="multipart/form-data">
+    <form class='col s8' method="POST" action="{{ route('productos.store') }}" enctype="multipart/form-data">
         @csrf
         <div class="row">
             <div class="input-field col s8">
-                <input placeholder="Nombre del Producto" id="nombre" name="nombre" value="{{ old('nombre') }}" type="text">
-                <label for="nombre">Nombre del Producto</label>
-                <span class="blue-text text-accent-1">{{ $errors->first('nombre') }}</span>
+                <input placeholder="Nombre de Producto" id="nombre" type="text" name="nombre" class="validate" value="{{ old('nombre') }}">
+                <label for="nombre">Nombre de Producto</label>
+                <span class="red-text text-red accent-4">{{ $errors->first('nombre') }}</span>
             </div>
         </div>
         <div class="row">
             <div class="input-field col s8">
-                <textarea class="materialize-textarea" placeholder="Descripcion del Producto" id="desc" name="desc">{{ old('desc') }}</textarea>
-                <label for="desc">Descripcion del Producto</label>
-                <span class="blue-text text-accent-1">{{ $errors->first('desc') }}</span>
+                <textarea name="desc" id="desc" class="materialize-textarea">
+                {{ old('desc') }}
+                </textarea>
+                <label for="desc">Descripción</label>
+                <span class="red-text text-red accent-4">{{ $errors->first('desc') }}</span>
             </div>
         </div>
         <div class="row">
             <div class="input-field col s8">
-                <input placeholder="Precio del Producto" id="precio" name="precio" value="{{ old('precio') }}" type="text">
-                <label for="precio">Precio del Producto</label>
-                <span class="blue-text text-accent-1">{{ $errors->first('precio') }}</span>
+                <input placeholder="Precio de Producto" id="precio" type="text" name="precio" class="validate" value="{{ old('precio') }}">
+                <label for="precio">Precio de Producto</label>
+                <span class="red-text text-red accent-4">{{ $errors->first('precio') }}</span>
             </div>
         </div>
         <div class="row">
-            <div class="col s8 input-field">
+            <div class="input-field col s8">
                 <select name="marca" id="marca">
-                    <option value="">Elija marca</option>
+                    <option value="{{ old('marca') }}">Elija Marca</option>
                     @foreach($marcas as $marca)
-                        <option value="{{ $marca->id }}">
-                            {{ $marca->nombre }}
-                        </option>
+                    <option value="{{ $marca->id }}">{{ $marca->nombre }}</option>
                     @endforeach
                 </select>
-                <label for="marca">Marca</label>
-                <span class="blue-text text-accent-1">{{ $errors->first('marca') }}</span>
+                <label>Seleccione la Marca</label>
+                <span class="red-text text-red accent-4">{{ $errors->first('marca') }}</span>
             </div>
         </div>
         <div class="row">
-            <div class="col s8 input-field">
+            <div class="input-field col s8">
                 <select name="categoria" id="categoria">
-                <option value="">Elija Categoria</option>
+                    <option value="{{ old('categoria') }}">Elija Categoria</option>
                     @foreach($categorias as $categoria)
-                        <option value="{{ $categoria->id }}">
-                            {{ $categoria->nombre }}
-                        </option>
+                    <option value="{{ $categoria->id }}">{{ $categoria->nombre }}</option>
                     @endforeach
                 </select>
-                <label for="categoria">Categoria</label>
-                <span class="blue-text text-accent-1">{{ $errors->first('categoria') }}</span>
+                <label>Seleccione la Categoria</label>
+                <span class="red-text text-red accent-4">{{ $errors->first('categoria') }}</span>
             </div>
         </div>
         <div class="row">
             <div class="file-field input-field col s8">
-                <div class="btn #42a5f5 blue lighten-1">
-                    <span>Imagen de producto...</span>
-                    <input type="file" name="imagen">
+                <div class="btn cyan darken-3">
+                    <span>Imagen</span>
+                    <input type="file" name="imagen" id="imagen">
                 </div>
                 <div class="file-path-wrapper">
-                        <input class="file-path validate" placeholder="Imagen del Producto" type="text">
-                        <span class="blue-text text-accent-1">{{ $errors->first('imagen') }}</span>
+                    <input class="file-path validate" type="text" placeholder="Imagen de Producto">
+                    <span class="red-text text-red accent-4">{{ $errors->first('imagen') }}</span>
                 </div>
             </div>
         </div>
         <div class="row">
-            <div class="s8">
-                <button class="btn waves-effect waves-light #42a5f5 blue lighten-1" type="submit" name="action">Guardar</button>
-            </div>
+            <button class="btn waves-effect waves-light cyan darken-3" type="submit" name="action">GUARDAR
+            </button>
         </div>
     </form>
 </div>
-@if(session('mensaje'))
-<div class="row">
-    <h5 class="blue-text text-accent-1">{{ session('mensaje')}}</h5>
-</div>
-@endif
 @endsection
